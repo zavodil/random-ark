@@ -1,10 +1,11 @@
-# Test WASM - Random Number Generator
+# Get Random - WASI Example
 
-Simple WASM module for testing NEAR Offshore platform.
+Simple WASM binary for testing NEAR Offshore platform with WASI support.
 
 ## Description
 
-Generates a random number in the specified range using `getrandom` library.
+Generates a random number in the specified range using `rand` crate with WASI random source.
+Reads input from stdin and writes output to stdout.
 
 ## Input Format
 
@@ -26,31 +27,52 @@ Generates a random number in the specified range using `getrandom` library.
 ## Building
 
 ```bash
-# Add WASM target
-rustup target add wasm32-unknown-unknown
+# Add WASI target
+rustup target add wasm32-wasip1
 
 # Build
-cargo build --release --target wasm32-unknown-unknown
+cargo build --release --target wasm32-wasip1
 
-# Output will be at:
-# target/wasm32-unknown-unknown/release/test_wasm.wasm
+# Output: target/wasm32-wasip1/release/get-random-example.wasm (~111KB)
+```
+
+## Local Testing
+
+```bash
+# Test with wasmtime
+echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/get-random-example.wasm
+
+# Expected output: {"random_number":42}  (some number between 1-100)
 ```
 
 ## Usage with NEAR Offshore
 
-1. Push this code to a GitHub repository
-2. Call `request_execution` on the OffchainVM contract with:
-   - `repo`: Your GitHub repo URL
-   - `commit`: Git commit hash
-   - `build_target`: `"wasm32-unknown-unknown"`
-   - Input data with min/max range
+1. Push this code to a GitHub repository (e.g., https://github.com/zavodil/random-ark)
+
+2. Call `request_execution` on the OffchainVM contract:
+```bash
+near call offchainvm.testnet request_execution '{
+  "code_source": {
+    "repo": "https://github.com/zavodil/random-ark",
+    "commit": "main",
+    "build_target": "wasm32-wasi"
+  },
+  "resource_limits": {
+    "max_instructions": 10000000,
+    "max_memory_mb": 128,
+    "max_execution_seconds": 60
+  },
+  "input_data": "{\"min\":1,\"max\":100}"
+}' --accountId your-account.testnet --deposit 0.1
+```
 
 3. Worker will:
-   - Compile the WASM
-   - Execute it with your input
-   - Return the random number result to your callback
+   - Compile the WASM in sandboxed Docker container
+   - Execute with wasmi (WASI P1) or wasmtime (WASI P2)
+   - Return the random number as readable text (not bytes!)
+   - Show result in NEAR explorer
 
-## Testing Locally
+## Unit Tests
 
 ```bash
 cargo test
