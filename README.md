@@ -55,7 +55,7 @@ near call offchainvm.testnet request_execution '{
   "code_source": {
     "repo": "https://github.com/zavodil/random-ark",
     "commit": "main",
-    "build_target": "wasm32-wasi"
+    "build_target": "wasm32-wasip1"
   },
   "resource_limits": {
     "max_instructions": 10000000,
