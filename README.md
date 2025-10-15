@@ -33,14 +33,14 @@ rustup target add wasm32-wasip1
 # Build
 cargo build --release --target wasm32-wasip1
 
-# Output: target/wasm32-wasip1/release/get-random-example.wasm (~111KB)
+# Output: target/wasm32-wasip1/release/random-ark.wasm (~111KB)
 ```
 
 ## Local Testing
 
 ```bash
 # Test with wasmtime
-echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/get-random-example.wasm
+echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/random-ark.wasm
 
 # Expected output: {"random_number":42}  (some number between 1-100)
 ```

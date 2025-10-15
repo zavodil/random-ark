@@ -1,11 +1,11 @@
 [package]
-name = "get-random-example"
+name = "random-ark"
 version = "0.1.0"
 edition = "2021"
 
 # Changed from lib to bin for WASI compatibility
 [[bin]]
-name = "get-random-example"
+name = "random-ark"
 path = "src/main.rs"
 
 [dependencies]
