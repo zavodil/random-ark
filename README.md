@@ -1,4 +1,4 @@
-# Get Random - WASI Example
+# Get Random: WASI Example
 
 Simple WASM binary for testing NEAR Offshore platform with WASI support.
 
