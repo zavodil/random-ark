@@ -1,6 +1,6 @@
 # Get Random - WASI Example
 
-Simple WASM binary for testing NEAR Offshore platform with WASI support.
+Simple WASM binary for testing NEAR OutLayer platform with WASI support.
 
 ## Description
 
@@ -45,7 +45,7 @@ echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/random-ark.wa
 # Expected output: {"random_number":42}  (some number between 1-100)
 ```
 
-## Usage with NEAR Offshore
+## Usage with NEAR OutLayer
 
 1. Push this code to a GitHub repository (e.g., https://github.com/zavodil/random-ark)
 
