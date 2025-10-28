@@ -24,10 +24,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     use rand::Rng;
     let mut rng = rand::thread_rng();
 
-    // Calculate result in range
+    // Validate input range
+    if input.max < input.min {
+        return Err("max must be >= min".into());
+    }
+
+    // Calculate result in range (inclusive: min..=max)
     let result = if input.max > input.min {
         rng.gen_range(input.min..=input.max)
     } else {
+        // max == min, return the only possible value
         input.min
     };
 
