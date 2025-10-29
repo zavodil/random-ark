@@ -50,11 +50,11 @@ near contract call-function as-transaction coinflip.testnet flip_coin \
 ### Flip Tails
 
 ```bash
-near contract call-function as-transaction coinflip.testnet flip_coin \
+near contract call-function as-transaction coinbet.testnet flip_coin \
   json-args '{"choice": "Tails"}' \
   prepaid-gas '300.0 Tgas' \
   attached-deposit '0.01 NEAR' \
-  sign-as alice.testnet \
+  sign-as zavodil.testnet \
   network-config testnet \
   sign-with-keychain \
   send
@@ -67,7 +67,7 @@ near contract call-function as-transaction coinflip.testnet flip_coin \
 ```
 Log [coinflip.testnet]: 🎲 Player alice.testnet flips coin: Heads
 Log [coinflip.testnet]: 📤 Requesting random number from OutLayer
-Log [c5.offchainvm.testnet]: EVENT_JSON:{"event":"execution_requested",...}
+Log [outlayer.testnet]: EVENT_JSON:{"event":"execution_requested",...}
 Log [coinflip.testnet]: ✅ Received random result: {"random_number":0}
 Log [coinflip.testnet]: 🎲 Random number: 0
 Log [coinflip.testnet]: 🎉 Player alice.testnet WON! Choice: Heads, Result: Heads
@@ -80,7 +80,7 @@ Result: "🎉 Congratulations! You won! Result: Heads, Your choice: Heads"
 ```
 Log [coinflip.testnet]: 🎲 Player alice.testnet flips coin: Heads
 Log [coinflip.testnet]: 📤 Requesting random number from OutLayer
-Log [c5.offchainvm.testnet]: EVENT_JSON:{"event":"execution_requested",...}
+Log [outlayer.testnet]: EVENT_JSON:{"event":"execution_requested",...}
 Log [coinflip.testnet]: ✅ Received random result: {"random_number":1}
 Log [coinflip.testnet]: 🎲 Random number: 1
 Log [coinflip.testnet]: 😢 Player alice.testnet LOST. Choice: Heads, Result: Tails
@@ -95,7 +95,7 @@ Player
   ↓ flip_coin(Heads) + 0.01 NEAR
 CoinFlipContract (coinflip.testnet)
   ↓ request_execution() + 0.01 NEAR (hardcoded params)
-OutLayer Contract (c5.offchainvm.testnet)
+OutLayer Contract (outlayer.testnet)
   ├─ promise_yield_create (pause)
   └─ Emit event
      ↓
@@ -140,8 +140,8 @@ pub fn flip_coin(&mut self, choice: CoinSide) -> Promise {
         "payer_account_id": Some(player.clone())
     });
 
-    // Call OutLayer (hardcoded contract: c5.offchainvm.testnet)
-    ext_outlayer::ext("c5.offchainvm.testnet".parse().unwrap())
+    // Call OutLayer
+    ext_outlayer::ext("outlayer.testnet".parse().unwrap())
         .with_attached_deposit(NearToken::from_yoctonear(attached))
         .with_unused_gas_weight(1)
         .request_execution(code_source, resource_limits, input_data, None, "Json".to_string(), Some(player.clone()))
