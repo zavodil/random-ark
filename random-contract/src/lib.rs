@@ -76,7 +76,7 @@ impl CoinFlipContract {
             "Minimum deposit is 0.01 NEAR to pay for OutLayer execution"
         );
 
-        log!("🎲 Player {} flips coin: {:?}", player, choice);
+        log!("Player {} chose {:?}. Requesting random number from OutLayer", player, choice);
 
         // Hardcoded parameters
         let code_source = near_sdk::serde_json::json!({
@@ -90,8 +90,6 @@ impl CoinFlipContract {
             "max_memory_mb": 128u32,
             "max_execution_seconds": 60u64
         });
-
-        log!("📤 Requesting random number from OutLayer");
 
         // Call OutLayer using ext_contract
         // Use with_unused_gas_weight to allocate all remaining gas to request_execution
