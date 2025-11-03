@@ -129,10 +129,10 @@ impl CoinFlipContract {
         match result {
             // Success case: We received Some(RandomResponse)
             Ok(Some(random_response)) => {
-                log!("✅ Received random_response from OutLayer: {:?}", random_response);
+                log!("Received random_response from OutLayer: {:?}", random_response);
 
                 let random_number = random_response.random_number;
-                log!("🎲 Random number: {}", random_number);
+                log!("Random number: {}", random_number);
 
                 // Convert to CoinSide (0 = Heads, 1 = Tails)
                 let result_side = if random_number == 0 {
@@ -144,27 +144,27 @@ impl CoinFlipContract {
                 // Check if player won
                 if choice == result_side {
                     log!(
-                        "🎉 Player {} WON! Choice: {:?}, Result: {:?}",
+                        "Player {} WON! Choice: {:?}, Result: {:?}",
                         player,
                         choice,
                         result_side
                     );
 
                     format!(
-                        "🎉 Congratulations! You won! Result: {:?}, Your choice: {:?}",
+                        "Congratulations! You won! Result: {:?}, Your choice: {:?}",
                         result_side,
                         choice
                     )
                 } else {
                     log!(
-                        "😢 Player {} LOST. Choice: {:?}, Result: {:?}",
+                        "Player {} LOST. Choice: {:?}, Result: {:?}",
                         player,
                         choice,
                         result_side
                     );
 
                     format!(
-                        "😢 Sorry, you lost. Result: {:?}, Your choice: {:?}. Better luck next time!",
+                        "Sorry, you lost. Result: {:?}, Your choice: {:?}. Better luck next time!",
                         result_side,
                         choice
                     )
@@ -173,13 +173,13 @@ impl CoinFlipContract {
 
             // Failure case: OutLayer returned None (execution failed, no panic)
             Ok(None) => {
-                log!("❌ OutLayer execution failed - received None");
+                log!("OutLayer execution failed - received None");
                 env::panic_str("OutLayer execution failed")
             }
 
             // Promise error: This should never happen in normal operation
             Err(promise_error) => {
-                log!("❌ Promise system error: {:?}", promise_error);
+                log!("Promise system error: {:?}", promise_error);
                 env::panic_str(&format!("Promise system error: {:?}", promise_error))
             }
         }
