@@ -12,7 +12,9 @@ const MIN_DEPOSIT: u128 = 10_000_000_000_000_000_000_000; // 0.01 NEAR
 const CALLBACK_GAS: u64 = 5_000_000_000_000; // 5 TGas
 
 /// OutLayer contract ID (hardcoded)
-const OUTLAYER_CONTRACT_ID: &str = "outlayer.testnet";
+/// For testnet: "outlayer.testnet"
+/// For mainnet: "outlayer.near"
+const OUTLAYER_CONTRACT_ID: &str = "outlayer.near";
 
 /// External contract interface for OutLayer
 #[ext_contract(ext_outlayer)]

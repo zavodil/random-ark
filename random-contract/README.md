@@ -13,8 +13,8 @@ A simple example NEAR contract that uses OutLayer for random number generation.
 
 ## Demo
 
-- coin-toss.near
-- coin-toss.tesnet
+- Mainnet: coin-toss.near (uses outlayer.near)
+- Testnet: coin-toss.testnet (uses outlayer.testnet)
 - UI to play: https://outlayer.fastnear.com/playground
 
 ## Build
@@ -100,9 +100,9 @@ Result: "😢 Sorry, you lost. Result: Tails, Your choice: Heads. Better luck ne
 ```
 Player
   ↓ flip_coin(Heads) + 0.01 NEAR
-CoinFlipContract (coinflip.testnet)
+CoinFlipContract (coin-toss.testnet or coin-toss.near)
   ↓ request_execution() + 0.01 NEAR (hardcoded params)
-OutLayer Contract (outlayer.testnet)
+OutLayer Contract (outlayer.testnet or outlayer.near)
   ├─ promise_yield_create (pause)
   └─ Emit event
      ↓
@@ -147,7 +147,7 @@ pub fn flip_coin(&mut self, choice: CoinSide) -> Promise {
         "payer_account_id": Some(player.clone())
     });
 
-    // Call OutLayer
+    // Call OutLayer (outlayer.testnet for testnet, outlayer.near for mainnet)
     ext_outlayer::ext("outlayer.testnet".parse().unwrap())
         .with_attached_deposit(NearToken::from_yoctonear(attached))
         .with_unused_gas_weight(1)
