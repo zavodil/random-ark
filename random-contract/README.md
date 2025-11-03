@@ -10,6 +10,13 @@ A simple example NEAR contract that uses OutLayer for random number generation.
 4. Contract receives result via callback: `{"random_number": 0}` or `{"random_number": 1}`
 5. Compares user's choice with result and returns message
 
+
+## Demo
+
+- coin-toss.near
+- coin-toss.tesnet
+- UI to play: https://outlayer.fastnear.com/playground
+
 ## Build
 
 ```bash
@@ -21,7 +28,7 @@ WASM: `target/wasm32-unknown-unknown/release/random_contract.wasm`
 ## Deploy
 
 ```bash
-near contract deploy coinflip.testnet \
+near contract deploy coin-toss.testnet \
   use-file target/wasm32-unknown-unknown/release/random_contract.wasm \
   with-init-call new \
   json-args '{}' \
@@ -37,7 +44,7 @@ near contract deploy coinflip.testnet \
 ### Flip Heads
 
 ```bash
-near contract call-function as-transaction coinflip.testnet flip_coin \
+near contract call-function as-transaction coin-toss.testnet flip_coin \
   json-args '{"choice": "Heads"}' \
   prepaid-gas '300.0 Tgas' \
   attached-deposit '0.01 NEAR' \
@@ -50,7 +57,7 @@ near contract call-function as-transaction coinflip.testnet flip_coin \
 ### Flip Tails
 
 ```bash
-near contract call-function as-transaction coinbet.testnet flip_coin \
+near contract call-function as-transaction coin-toss.testnet flip_coin \
   json-args '{"choice": "Tails"}' \
   prepaid-gas '300.0 Tgas' \
   attached-deposit '0.01 NEAR' \

@@ -1,6 +1,6 @@
 mod types;
 
-use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
+use near_sdk::borsh::{BorshDeserialize, BorshSerialize};
 use near_sdk::{env, ext_contract, log, near_bindgen, AccountId, NearToken, Promise, PromiseError};
 
 use types::{CoinSide, RandomResponse};
@@ -16,6 +16,7 @@ const OUTLAYER_CONTRACT_ID: &str = "outlayer.testnet";
 
 /// External contract interface for OutLayer
 #[ext_contract(ext_outlayer)]
+#[allow(dead_code)]
 trait OutLayer {
     fn request_execution(
         &mut self,
@@ -30,6 +31,7 @@ trait OutLayer {
 
 /// External contract interface for self callbacks
 #[ext_contract(ext_self)]
+#[allow(dead_code)]
 trait ExtSelf {
     fn on_random_result(
         &mut self,
