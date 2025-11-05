@@ -51,7 +51,7 @@ echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/random-ark.wa
 
 2. Call `request_execution` on the OffchainVM contract:
 ```bash
-near call offchainvm.testnet request_execution '{
+near call outlayer.testnet request_execution '{
   "code_source": {
     "repo": "https://github.com/zavodil/random-ark",
     "commit": "main",
