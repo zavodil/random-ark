@@ -20,7 +20,7 @@ A simple example NEAR contract that uses OutLayer for random number generation.
 ## Build
 
 ```bash
-cargo build --target wasm32-unknown-unknown --release
+cargo near build non-reproducible-wasm
 ```
 
 WASM: `target/wasm32-unknown-unknown/release/random_contract.wasm`
