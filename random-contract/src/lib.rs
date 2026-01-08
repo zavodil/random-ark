@@ -22,11 +22,11 @@ const OUTLAYER_CONTRACT_ID: &str = "outlayer.near";
 trait OutLayer {
     fn request_execution(
         &mut self,
-        code_source: near_sdk::serde_json::Value,
-        resource_limits: near_sdk::serde_json::Value,
-        input_data: String,
+        source: near_sdk::serde_json::Value,
+        resource_limits: Option<near_sdk::serde_json::Value>,
+        input_data: Option<String>,
         secrets_ref: Option<near_sdk::serde_json::Value>,
-        response_format: String,
+        response_format: Option<String>,
         payer_account_id: Option<AccountId>,
     );
 }
@@ -79,10 +79,12 @@ impl CoinFlipContract {
         log!("Player {} chose {:?}. Requesting random number from OutLayer", player, choice);
 
         // Hardcoded parameters
-        let code_source = near_sdk::serde_json::json!({
-            "repo": "https://github.com/zavodil/random-ark",
-            "commit": "main",
-            "build_target": "wasm32-wasip1"
+        let source = near_sdk::serde_json::json!({
+            "GitHub": {
+                "repo": "https://github.com/zavodil/random-ark",
+                "commit": "main",
+                "build_target": "wasm32-wasip1"
+            }
         });
 
         let resource_limits = near_sdk::serde_json::json!({
@@ -99,11 +101,11 @@ impl CoinFlipContract {
             .with_attached_deposit(NearToken::from_yoctonear(attached))
             .with_unused_gas_weight(1) // All unused gas goes to request_execution
             .request_execution(
-                code_source,
-                resource_limits,
-                "{\"min\":0,\"max\":1}".to_string(),
+                source,
+                Some(resource_limits),
+                Some("{\"min\":0,\"max\":1}".to_string()),
                 None,
-                "Json".to_string(),
+                Some("Json".to_string()),
                 Some(player.clone()), // Refund to player, not this contract
             )
             .then(
