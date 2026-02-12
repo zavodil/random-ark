@@ -1,5 +1,7 @@
 # Get Random - WASI Example
 
+> **[Full documentation](https://outlayer.fastnear.com/docs/examples#random-ark)** on the OutLayer dashboard.
+
 Simple WASM binary for testing NEAR OutLayer platform with WASI support.
 
 ## Description
