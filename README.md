@@ -35,27 +35,27 @@ rustup target add wasm32-wasip1
 # Build
 cargo build --release --target wasm32-wasip1
 
-# Output: target/wasm32-wasip1/release/random-ark.wasm (~111KB)
+# Output: target/wasm32-wasip1/release/random-example.wasm (~111KB)
 ```
 
 ## Local Testing
 
 ```bash
 # Test with wasmtime
-echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/random-ark.wasm
+echo '{"min":1,"max":100}' | wasmtime target/wasm32-wasip1/release/random-example.wasm
 
 # Expected output: {"random_number":42}  (some number between 1-100)
 ```
 
 ## Usage with NEAR OutLayer
 
-1. Push this code to a GitHub repository (e.g., https://github.com/zavodil/random-ark)
+1. Push this code to a GitHub repository (e.g., https://github.com/out-layer/random-example)
 
 2. Call `request_execution` on the OffchainVM contract:
 ```bash
 near call outlayer.testnet request_execution '{
   "code_source": {
-    "repo": "https://github.com/zavodil/random-ark",
+    "repo": "https://github.com/out-layer/random-example",
     "commit": "main",
     "build_target": "wasm32-wasip1"
   },

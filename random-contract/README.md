@@ -6,7 +6,7 @@ A simple example NEAR contract that uses OutLayer for random number generation.
 
 1. User calls `flip_coin(Heads or Tails)` + attaches 0.01 NEAR
 2. Contract calls OutLayer `request_execution` to generate a random number (0 or 1)
-3. Worker compiles and executes WASM from https://github.com/zavodil/random-ark
+3. Worker compiles and executes WASM from https://github.com/out-layer/random-example
 4. Contract receives result via callback: `{"random_number": 0}` or `{"random_number": 1}`
 5. Compares user's choice with result and returns message
 
@@ -107,7 +107,7 @@ OutLayer Contract (outlayer.testnet or outlayer.near)
   └─ Emit event
      ↓
 Worker
-  ├─ Compilation: github.com/zavodil/random-ark (hardcoded)
+  ├─ Compilation: github.com/out-layer/random-example (hardcoded)
   ├─ Execution: {"min":0, "max":1} (hardcoded)
   └─ Result: {"random_number": 0 or 1}
      ↓
@@ -133,7 +133,7 @@ pub fn flip_coin(&mut self, choice: CoinSide) -> Promise {
     // Hardcoded parameters
     let args = json!({
         "code_source": {
-            "repo": "https://github.com/zavodil/random-ark",
+            "repo": "https://github.com/out-layer/random-example",
             "commit": "main",
             "build_target": "wasm32-wasip1"
         },

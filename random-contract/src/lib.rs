@@ -81,7 +81,7 @@ impl CoinFlipContract {
         // Hardcoded parameters
         let source = near_sdk::serde_json::json!({
             "GitHub": {
-                "repo": "https://github.com/zavodil/random-ark",
+                "repo": "https://github.com/out-layer/random-example",
                 "commit": "main",
                 "build_target": "wasm32-wasip1"
             }
