@@ -15,7 +15,7 @@ A simple example NEAR contract that uses OutLayer for random number generation.
 
 - Mainnet: coin-toss.near (uses outlayer.near)
 - Testnet: coin-toss.testnet (uses outlayer.testnet)
-- UI to play: https://outlayer.fastnear.com/playground
+- UI to play: https://app.outlayer.ai/playground
 
 ## Build
 
